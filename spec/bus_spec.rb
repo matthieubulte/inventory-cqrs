@@ -42,10 +42,10 @@ describe Bus do
 
     it 'doesn\'t change the subscribers list if the subscriber parameter hasn\'t been registered before' do
       bus = Bus.new
-      bus.subscribe({:foo => 'Foo'})
+      bus.subscribe({foo: 'Foo'})
       bus.unsubscribe({})
 
-      expect(bus.subscribers).to contain_exactly({:foo => 'Foo'})
+      expect(bus.subscribers).to contain_exactly({foo: 'Foo'})
     end
   end
 

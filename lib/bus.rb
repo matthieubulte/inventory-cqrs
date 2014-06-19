@@ -1,24 +1,23 @@
 class Bus
-
   attr_reader :subscribers
   def initialize
     @subscribers = []
   end
 
-  def subscribe (subscriber)
+  def subscribe(subscriber)
     @subscribers << subscriber unless @subscribers.include?(subscriber)
   end
 
-  def unsubscribe (subscriber)
+  def unsubscribe(subscriber)
     @subscribers.delete subscriber
   end
 
   def publish_as(message, type)
-    @subscribers.each {|subscriber| call_handler(subscriber, message, type)}
+    @subscribers.each { |subscriber| call_handler(subscriber, message, type) }
   end
 
   def publish(message)
-    @subscribers.each {|subscriber| call_handler(subscriber, message, message.class.to_s)}
+    @subscribers.each { |subscriber| call_handler(subscriber, message, message.class.to_s) }
   end
 
   private
@@ -29,7 +28,6 @@ class Bus
 
   def call_handler(subscriber, message, type)
     handler_name = handler_of type
-    handler = 'handle' unless subscriber.respond_to? handler_name
 
     if subscriber.respond_to? handler_name
       subscriber.public_send(handler_name, message)
